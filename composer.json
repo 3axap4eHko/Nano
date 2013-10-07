@@ -1,0 +1,17 @@
+{
+    "name": "nano/gh-service",
+    "description": "Small PHP tool for deployment yours projects from GitHub to yours servers",
+    "license": "MIT",
+    "keywords": [
+        "framework",
+        "nano",
+        "github"
+    ],
+    "homepage": "",
+    "require": {
+        "php": ">=5.5",
+        "ext-phalcon": ">=1.2.2",
+        "ext-ssh2": ">=0.12",
+        "nano/nano": "0.1.*"
+    }
+}

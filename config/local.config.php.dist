@@ -1,0 +1,11 @@
+<?php
+
+use Nano\Service\ServiceManager as SM;
+
+return [
+    SM::SERVICE_DATABASE => [
+        'username' => 'root',
+        'password' => null,
+        'dbname' => 'gh-service',
+    ]
+];

@@ -1,0 +1,37 @@
+{
+    "name": "zendframework/zendframework",
+    "description": "Zend Framework 2",
+    "type": "library",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://framework.zend.com/",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "doctrine/annotations": ">=1.0",
+        "ircmaxell/random-lib": "dev-master",
+        "ircmaxell/security-lib": "dev-master",
+        "ocramius/proxy-manager": "0.4.*",
+        "phpunit/PHPUnit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Nano\\": "library/"
+        }
+    },
+    "bin": [
+        "bin/classmap_generator.php",
+        "bin/pluginmap_generator.php",
+        "bin/templatemap_generator.php"
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.2-dev",
+            "dev-develop": "2.3-dev"
+        }
+    }
+}
