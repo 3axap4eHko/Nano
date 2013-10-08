@@ -19,10 +19,9 @@ $loader = new Loader([
 $serviceManager = new DefaultServiceManager();
 $serviceManager->set(SM::SERVICE_LOADER, $loader);
 
-$a = new \Nano\Annotation\Annotation('GH\Controller\IndexController');
+//$a = new \Nano\Annotation\Annotation('GH\Controller\IndexController');
 
-debug($a->reflectionClass->getDocComment());
-die();
+
 $app = new Application($serviceManager);
 $app->init(__DIR__ . '/../config/application.config.php')
     ->run();
