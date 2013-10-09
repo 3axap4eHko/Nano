@@ -14,10 +14,14 @@ class Annotation
     public function parse($docComment)
     {
 
-        $docComment = preg_replace('#(/?\ *\*\ */?)#','',$docComment);
-        $docComment = preg_replace('#(\n@)#','$1@',$docComment);
+        $docComment = preg_replace('#(^\ */?\**\ */?)#m','',$docComment);
+        $docComment = preg_replace('#^(@)#m','@$1',$docComment);
+        $docComment = preg_replace('#\n([^@])#',' $1',$docComment);
         $docComment = array_map(function($annotation) {
+
             $annotation = str_replace("\n",'',$annotation);
+            $annotation = trim($annotation);
+            var_dump($annotation);
             if (preg_match('#@(\w+)(.+)#', $annotation, $matches))
             {
                 return (object)[
@@ -26,8 +30,7 @@ class Annotation
                 ];
             }
             return $annotation;
-        },preg_split('#\n@#', $docComment));
-
+        },preg_split('#^@#m', $docComment));
         $docComment = array_filter($docComment, function($value){
             return is_object($value);
         });
