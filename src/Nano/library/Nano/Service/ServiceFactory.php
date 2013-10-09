@@ -8,8 +8,13 @@ class ServiceFactory implements ServiceFactoryInterface
 {
     use ServiceInjection;
 
+    /**
+     * @var string
+     */
     protected $className;
-
+    /**
+     * @var array
+     */
     protected $arguments;
 
     final protected function __construct($className, array $arguments = [])
@@ -49,6 +54,12 @@ class ServiceFactory implements ServiceFactoryInterface
         return $instance;
     }
 
+    /**
+     * @param string $className
+     * @param array  $arguments
+     *
+     * @return object
+     */
     public static function instantiateClass($className, array $arguments = [])
     {
         $reflection = new \ReflectionClass($className);
@@ -56,6 +67,11 @@ class ServiceFactory implements ServiceFactoryInterface
         return $reflection->newInstanceArgs($arguments);
     }
 
+    /**
+     * @param string $className
+     *
+     * @return array|\ReflectionParameter[]
+     */
     public static function getConstructorParameters($className)
     {
         $reflection = new \ReflectionClass($className);

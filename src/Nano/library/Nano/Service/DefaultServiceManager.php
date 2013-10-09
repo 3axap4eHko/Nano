@@ -7,6 +7,7 @@ class DefaultServiceManager extends ServiceManager
     protected $defaultServices = [
         self::SERVICE_CONFIG        => 'Nano\Config',
         self::SERVICE_EVENT_MANAGER => 'Nano\Event\EventManager',
+        self::SERVICE_ANNOTATION    => 'Nano\Annotation\AnnotationManager',
         self::SERVICE_DISPATCHER    => 'Nano\Dispatcher\Dispatcher',
         self::SERVICE_ROUTER        => 'Nano\Router\Router',
         self::SERVICE_VIEW          => 'Nano\View\View',

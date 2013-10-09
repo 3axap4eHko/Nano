@@ -3,9 +3,11 @@
 namespace Nano\Event;
 
 
+use Nano\Annotation\Parser\PhpDocumentorParser;
 use Nano\Behavior\ServiceInjection;
 use Nano\stdCls\ArrayCollection;
 use Nano\Service\ServiceManagerInterface;
+use Nano\Closure;
 
 class EventManager implements EventManagerInterface
 {
@@ -36,7 +38,7 @@ class EventManager implements EventManagerInterface
             $domain = $this->events->get($domainName);
         }
         /** @var EventDomain $domain */
-        $domain->listen($eventName, $callback);
+        $domain->listen($eventName, Closure::create($callback));
 
         return $this;
     }

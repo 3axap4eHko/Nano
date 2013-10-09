@@ -19,6 +19,7 @@ class ServiceManager implements ServiceManagerInterface
     const SERVICE_PLUGINS         = 'plugins';
     const SERVICE_SERVICE_MANAGER = 'serviceManager';
     const SERVICE_EVENT_MANAGER   = 'eventManager';
+    const SERVICE_ANNOTATION      = 'annotation';
     const SERVICE_DISPATCHER      = 'dispatcher';
     const SERVICE_ROUTER          = 'router';
     const SERVICE_REQUEST         = 'request';
@@ -86,6 +87,11 @@ class ServiceManager implements ServiceManagerInterface
         {
             $definition->setServiceManager($this);
         }
+        if ($definition instanceof EventAwareInterface && $this->has(self::SERVICE_EVENT_MANAGER))
+        {
+            $definition->setEventManager($this->get(self::SERVICE_EVENT_MANAGER));
+        }
+
         $this->sharedServices->set($name, $definition);
 
         return $definition;

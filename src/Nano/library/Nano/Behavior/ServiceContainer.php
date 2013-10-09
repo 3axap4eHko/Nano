@@ -7,15 +7,18 @@ use Nano\Config;
 use Nano\Event\EventManagerInterface;
 use Nano\Dispatcher\DispatcherInterface;
 use Nano\Router\RouterInterface;
+use Nano\Annotation\AnnotationManagerInterface;
 
 /**
  * Class ServiceContainer
  * @package Nano\Behavior
  *
- * @property Config                $config
- * @property EventManagerInterface $eventManager
- * @property DispatcherInterface   $dispatcher
- * @property RouterInterface       $router
+ * @property Config                     $config
+ * @property EventManagerInterface      $eventManager
+ * @property DispatcherInterface        $dispatcher
+ * @property RouterInterface            $router
+ * @property AnnotationManagerInterface $annotation
+ *
  */
 trait ServiceContainer
 {

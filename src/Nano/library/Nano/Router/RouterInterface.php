@@ -22,6 +22,14 @@ interface RouterInterface
     public function getRoute($name);
 
     /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasRoute($name);
+
+
+    /**
      * @param $arguments
      *
      * @return bool

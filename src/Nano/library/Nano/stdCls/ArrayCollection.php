@@ -225,5 +225,4 @@ class ArrayCollection extends \ArrayObject
     {
         return $this->get($index);
     }
-
 }

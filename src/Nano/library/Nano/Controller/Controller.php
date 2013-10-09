@@ -13,4 +13,8 @@ class Controller implements ServiceAwareInterface, EventAwareInterface
     use ServiceInjection;
     use EventInjection;
     use ServiceContainer;
+
+    public function initialize()
+    {
+    }
 }

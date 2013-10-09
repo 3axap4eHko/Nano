@@ -15,7 +15,7 @@ return [
             ]
         ],
         'home' => [
-            'pattern' => '/test',
+            'pattern' => '/',
             'defaults' => [
                 '_handler' => 'GH:Index:index'
             ]

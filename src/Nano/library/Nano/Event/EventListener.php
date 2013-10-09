@@ -48,10 +48,12 @@ class EventListener
     public function fire($target, array $arguments = [])
     {
         $event = new Event($this->name, $target, $arguments);
+
         $this->responses = $this->callbacks->map(function($callback) use ($event) {
             if ($event->isStopped()) {
                 return null;
             }
+
             return call_user_func_array($callback, [$event]);
         });
     }

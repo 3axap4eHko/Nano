@@ -62,6 +62,16 @@ class Router implements ServiceAwareInterface, EventAwareInterface
     }
 
     /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasRoute($name)
+    {
+        return $this->routes->has($name);
+    }
+
+    /**
      * @param Request $arguments
      *
      * @return bool
@@ -123,13 +133,7 @@ class Router implements ServiceAwareInterface, EventAwareInterface
             $arguments->append($value);
         }
 
-        try
-        {
-            $route = ServiceFactory::instantiateClass($className, $arguments->getArrayCopy());
-        }
-        catch (\Exception $e)
-        {
-        }
+        $route = ServiceFactory::instantiateClass($className, $arguments->getArrayCopy());
 
 
         return $route;

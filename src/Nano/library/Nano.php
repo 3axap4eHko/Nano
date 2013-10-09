@@ -22,4 +22,15 @@ class Nano
         }
         return [];
     }
+
+    public static function toCamelCase($text)
+    {
+        return preg_replace_callback(
+            '/(^|[^a-zA-Z0-9_]+)(\w)/',
+            function ($matches) {
+                return ucfirst($matches[2]);
+            } ,
+            $text
+        );
+    }
 }

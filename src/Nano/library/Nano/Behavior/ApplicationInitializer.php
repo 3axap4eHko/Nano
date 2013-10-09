@@ -2,6 +2,8 @@
 
 namespace Nano\Behavior;
 
+use Nano\Annotation\AnnotationManagerInterface;
+use Nano\Annotation\Parser\PhpDocumentorParser;
 use Nano\Config;
 use Nano\Http\Route\Route;
 use Nano\Loader;
@@ -27,7 +29,11 @@ trait ApplicationInitializer
         SM::SERVICE_SERVICES,
         SM::SERVICE_PLUGINS,
         SM::SERVICE_DISPATCHER,
-        SM::SERVICE_ROUTER
+        SM::SERVICE_ROUTER,
+
+
+
+        SM::SERVICE_ANNOTATION,
     ];
 
     public function init($applicationConfig)
@@ -158,7 +164,6 @@ trait ApplicationInitializer
 
     private function _initRouter(Config $config)
     {
-
         /** @var ServiceAwareInterface $this */
         $sm = $this->getServiceManager();
         /** @var RouterInterface $router */
@@ -181,5 +186,14 @@ trait ApplicationInitializer
         return $this;
     }
 
+    private function _initAnnotation(Config $config)
+    {
+        /** @var ServiceAwareInterface $this */
+        $sm = $this->getServiceManager();
+        /** @var AnnotationManagerInterface $annotation */
+        $annotation = $sm->getShared(SM::SERVICE_ANNOTATION);
+        $annotation->registerParser(new PhpDocumentorParser());
 
+        return $this;
+    }
 }

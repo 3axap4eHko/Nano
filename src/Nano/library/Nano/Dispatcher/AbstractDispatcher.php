@@ -5,8 +5,8 @@ namespace Nano\Dispatcher;
 use Nano\Behavior\EventInjection;
 use Nano\Behavior\ServiceContainer;
 use Nano\Behavior\ServiceInjection;
+use Nano\Exception;
 use Nano\Http\Route\AbstractRoute as HttpAbstractRoute;
-use Nano\Console\Route\AbstractRoute as ConsoleAbstractRoute;
 use Nano\Service\ServiceManager as SM;
 use Nano\Router\RouterInterface;
 use Nano\Router\Route\RouteInterface;
@@ -72,11 +72,15 @@ abstract class AbstractDispatcher implements DispatcherInterface
         if (!isset($this->controllers[$controllerClass]))
         {
             $this->controllers[$controllerClass] = new $controllerClass();
+            $this->annotation->parseObject($this->controllers[$controllerClass]);
+
         }
         /** @var Controller $controller */
         $this->setCurrentController($controller = $this->controllers[$controllerClass]);
         $controller->setServiceManager($this->getServiceManager());
         $controller->setEventManager($this->getEventManager());
+
+        $this->getEventManager()->attach('dispatcher:initialize', [$controller, 'initialize']);
 
         $actionMethod = array_shift($handler);
         if ($actionMethod)
@@ -128,9 +132,6 @@ abstract class AbstractDispatcher implements DispatcherInterface
                 $handler = $this->handleRoute($route);
                 $controller = $this->initialize($handler);
 
-                $this->getEventManager()->attach('dispatcher:initialize', $controller);
-
-
                 $this->getEventManager()->fire('dispatcher:initialize', $this);
 
 
@@ -149,12 +150,14 @@ abstract class AbstractDispatcher implements DispatcherInterface
 
 
             $content = ob_get_clean();
-            $response = 0;
-
 
         } catch (NotFoundException $e)
         {
             $this->getEventManager()->fire('dispatcher:beforeNotFoundAction', $this);
+            if (!$router->hasRoute('notFound'))
+            {
+                throw new Exception('Route "notFound" does not exists');
+            }
             $route = $router->getRoute('notFound');
             $handler = $this->handleRoute($route);
             $controller = $this->initialize($handler);
@@ -164,7 +167,6 @@ abstract class AbstractDispatcher implements DispatcherInterface
         {
             $this->getEventManager()->fire('dispatcher:beforeException', $this, [$e]);
         }
-
         die($content);
     }
 
