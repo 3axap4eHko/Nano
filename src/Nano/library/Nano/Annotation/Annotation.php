@@ -6,15 +6,14 @@ class Annotation
 {
     public $reflectionClass;
 
-
-
     public function __construct($className)
     {
         $this->reflectionClass = new \ReflectionClass($className);
     }
 
-    protected function parse($docComment)
+    public function parse($docComment)
     {
+
         $docComment = preg_replace('#(/?\ *\*\ */?)#','',$docComment);
         $docComment = preg_replace('#(\n@)#','$1@',$docComment);
         $docComment = array_map(function($annotation) {
@@ -22,8 +21,8 @@ class Annotation
             if (preg_match('#@(\w+)(.+)#', $annotation, $matches))
             {
                 return (object)[
-                    'tag' => $matches[1],
-                    'arguments' => $matches[2],
+                    'tag' => trim($matches[1]),
+                    'arguments' => trim($matches[2]),
                 ];
             }
             return $annotation;

@@ -14,12 +14,15 @@ require_once __DIR__ . '/../src/Nano/library/Nano/Loader.php';
 $loader = new Loader([
     'Nano' => __DIR__ . '/../src/Nano/library/Nano',
     'GH' => __DIR__ . '/../src/GH',
+    'Zend' => __DIR__ . '/../src/Zend',
 ]);
 
 $serviceManager = new DefaultServiceManager();
 $serviceManager->set(SM::SERVICE_LOADER, $loader);
 
-//$a = new \Nano\Annotation\Annotation('GH\Controller\IndexController');
+$a = new \Nano\Annotation\Annotation('GH\Controller\IndexController');
+debug($a->parse($a->reflectionClass->getDocComment()));
+
 
 
 $app = new Application($serviceManager);

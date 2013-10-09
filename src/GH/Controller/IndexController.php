@@ -12,6 +12,7 @@ use Nano\Http\Controller\Controller;
  *      name: "a",
  *      type: "b"
  * })
+ * @property integer $prop
  */
 class IndexController extends Controller
 {
